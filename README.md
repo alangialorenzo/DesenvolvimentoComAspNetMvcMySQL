@@ -1,7 +1,7 @@
 DesenvolvimentoComAspNetMvcMySQL
 ================================
 
-Comprei e estudei o livro: Desenvolvimento com ASP.NET MVC
+Comprei e estudei o livro: Desenvolvimento com ASP.NET MVC -
 Nele desenvolvemos uma app completa que utiliza o MS SQL Server.
 
 Como utilizo MySQL para desenvolver a maioria dos meus sistemas, resolvi criar este novo projeto.
