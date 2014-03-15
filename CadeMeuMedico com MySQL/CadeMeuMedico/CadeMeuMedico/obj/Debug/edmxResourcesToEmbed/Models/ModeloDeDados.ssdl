@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CadeMeuMedico.Models.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BannersPublicitarios">
+    <Key>
+      <PropertyRef Name="IDBanner" />
+    </Key>
+    <Property Name="IDBanner" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TituloCampanha" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="BannerCampanha" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="LinkBanner" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Cidades">
+    <Key>
+      <PropertyRef Name="IDCidade" />
+    </Key>
+    <Property Name="IDCidade" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Especialidades">
+    <Key>
+      <PropertyRef Name="IDEspecialidade" />
+    </Key>
+    <Property Name="IDEspecialidade" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="80" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Medicos">
+    <Key>
+      <PropertyRef Name="IDMedico" />
+    </Key>
+    <Property Name="IDMedico" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CRM" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="80" Nullable="false" />
+    <Property Name="Endereco" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Bairro" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="AtendePorConvenio" Type="bit" Nullable="false" />
+    <Property Name="TemClinica" Type="bit" Nullable="false" />
+    <Property Name="WebSiteBlog" Type="varchar" MaxLength="80" Nullable="false" />
+    <Property Name="IDCidade" Type="int" Nullable="false" />
+    <Property Name="IDEspecialidade" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="IDUsuario" />
+    </Key>
+    <Property Name="IDUsuario" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="80" Nullable="false" />
+    <Property Name="Login" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Senha" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <Association Name="medicos_ibfk_1">
+    <End Role="Cidades" Type="Self.Cidades" Multiplicity="1" />
+    <End Role="Medicos" Type="Self.Medicos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cidades">
+        <PropertyRef Name="IDCidade" />
+      </Principal>
+      <Dependent Role="Medicos">
+        <PropertyRef Name="IDCidade" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="medicos_ibfk_2">
+    <End Role="Cidades" Type="Self.Cidades" Multiplicity="1" />
+    <End Role="Medicos" Type="Self.Medicos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cidades">
+        <PropertyRef Name="IDCidade" />
+      </Principal>
+      <Dependent Role="Medicos">
+        <PropertyRef Name="IDCidade" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="medicos_ibfk_3">
+    <End Role="Especialidades" Type="Self.Especialidades" Multiplicity="1" />
+    <End Role="Medicos" Type="Self.Medicos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Especialidades">
+        <PropertyRef Name="IDEspecialidade" />
+      </Principal>
+      <Dependent Role="Medicos">
+        <PropertyRef Name="IDEspecialidade" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CadeMeuMedicoModelsStoreContainer">
+    <EntitySet Name="BannersPublicitarios" EntityType="Self.BannersPublicitarios" Schema="cademeumedicobd" store:Type="Tables" />
+    <EntitySet Name="Cidades" EntityType="Self.Cidades" Schema="cademeumedicobd" store:Type="Tables" />
+    <EntitySet Name="Especialidades" EntityType="Self.Especialidades" Schema="cademeumedicobd" store:Type="Tables" />
+    <EntitySet Name="Medicos" EntityType="Self.Medicos" Schema="cademeumedicobd" store:Type="Tables" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="cademeumedicobd" store:Type="Tables" />
+    <AssociationSet Name="medicos_ibfk_1" Association="Self.medicos_ibfk_1">
+      <End Role="Cidades" EntitySet="Cidades" />
+      <End Role="Medicos" EntitySet="Medicos" />
+    </AssociationSet>
+    <AssociationSet Name="medicos_ibfk_2" Association="Self.medicos_ibfk_2">
+      <End Role="Cidades" EntitySet="Cidades" />
+      <End Role="Medicos" EntitySet="Medicos" />
+    </AssociationSet>
+    <AssociationSet Name="medicos_ibfk_3" Association="Self.medicos_ibfk_3">
+      <End Role="Especialidades" EntitySet="Especialidades" />
+      <End Role="Medicos" EntitySet="Medicos" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

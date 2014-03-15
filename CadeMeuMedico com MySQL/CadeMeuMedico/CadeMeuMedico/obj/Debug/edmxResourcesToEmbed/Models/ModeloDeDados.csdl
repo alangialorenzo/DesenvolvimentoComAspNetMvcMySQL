@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CadeMeuMedico.Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BannersPublicitarios">
+    <Key>
+      <PropertyRef Name="IDBanner" />
+    </Key>
+    <Property Name="IDBanner" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TituloCampanha" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BannerCampanha" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LinkBanner" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Cidades">
+    <Key>
+      <PropertyRef Name="IDCidade" />
+    </Key>
+    <Property Name="IDCidade" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Medicos" Relationship="Self.medicos_ibfk_1" FromRole="Cidades" ToRole="Medicos" />
+    <NavigationProperty Name="Medicos1" Relationship="Self.medicos_ibfk_2" FromRole="Cidades" ToRole="Medicos" />
+  </EntityType>
+  <EntityType Name="Especialidades">
+    <Key>
+      <PropertyRef Name="IDEspecialidade" />
+    </Key>
+    <Property Name="IDEspecialidade" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Medicos" Relationship="Self.medicos_ibfk_3" FromRole="Especialidades" ToRole="Medicos" />
+  </EntityType>
+  <EntityType Name="Medicos">
+    <Key>
+      <PropertyRef Name="IDMedico" />
+    </Key>
+    <Property Name="IDMedico" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CRM" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nome" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Endereco" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Bairro" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AtendePorConvenio" Type="Boolean" Nullable="false" />
+    <Property Name="TemClinica" Type="Boolean" Nullable="false" />
+    <Property Name="WebsiteBlog" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IDCidade" Type="Int32" Nullable="false" />
+    <Property Name="IDEspecialidade" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Cidades" Relationship="Self.medicos_ibfk_1" FromRole="Medicos" ToRole="Cidades" />
+    <NavigationProperty Name="Cidades1" Relationship="Self.medicos_ibfk_2" FromRole="Medicos" ToRole="Cidades" />
+    <NavigationProperty Name="Especialidades" Relationship="Self.medicos_ibfk_3" FromRole="Medicos" ToRole="Especialidades" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="IDUsuario" />
+    </Key>
+    <Property Name="IDUsuario" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Senha" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <Association Name="medicos_ibfk_1">
+    <End Role="Cidades" Type="Self.Cidades" Multiplicity="1" />
+    <End Role="Medicos" Type="Self.Medicos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cidades">
+        <PropertyRef Name="IDCidade" />
+      </Principal>
+      <Dependent Role="Medicos">
+        <PropertyRef Name="IDCidade" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="medicos_ibfk_2">
+    <End Role="Cidades" Type="Self.Cidades" Multiplicity="1" />
+    <End Role="Medicos" Type="Self.Medicos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cidades">
+        <PropertyRef Name="IDCidade" />
+      </Principal>
+      <Dependent Role="Medicos">
+        <PropertyRef Name="IDCidade" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="medicos_ibfk_3">
+    <End Role="Especialidades" Type="Self.Especialidades" Multiplicity="1" />
+    <End Role="Medicos" Type="Self.Medicos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Especialidades">
+        <PropertyRef Name="IDEspecialidade" />
+      </Principal>
+      <Dependent Role="Medicos">
+        <PropertyRef Name="IDEspecialidade" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EntidadesCadeMeuMedicoBD" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BannersPublicitarios" EntityType="Self.BannersPublicitarios" />
+    <EntitySet Name="Cidades" EntityType="Self.Cidades" />
+    <EntitySet Name="Especialidades" EntityType="Self.Especialidades" />
+    <EntitySet Name="Medicos" EntityType="Self.Medicos" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+    <AssociationSet Name="medicos_ibfk_1" Association="Self.medicos_ibfk_1">
+      <End Role="Cidades" EntitySet="Cidades" />
+      <End Role="Medicos" EntitySet="Medicos" />
+    </AssociationSet>
+    <AssociationSet Name="medicos_ibfk_2" Association="Self.medicos_ibfk_2">
+      <End Role="Cidades" EntitySet="Cidades" />
+      <End Role="Medicos" EntitySet="Medicos" />
+    </AssociationSet>
+    <AssociationSet Name="medicos_ibfk_3" Association="Self.medicos_ibfk_3">
+      <End Role="Especialidades" EntitySet="Especialidades" />
+      <End Role="Medicos" EntitySet="Medicos" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
